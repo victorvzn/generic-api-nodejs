@@ -1,8 +1,14 @@
 const http = require('http')
 
+const fruits = [
+  { id: 1, name: "apple"},
+  { id: 2, name: "orange"},
+  { id: 3, name: "banana"},
+]
+
 const app = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text-plain' })
-  res.end('Hello World')
+  res.writeHead(200, { 'Content-Type': 'application/json' })
+  res.end(JSON.stringify(fruits))
 })
 
 const PORT = 3001
