@@ -61,4 +61,6 @@ app.post('/api/notes', (req, res) => {
   res.json(notes)
 })
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+const PORT = process.env.PORT || 3001
+
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`))
