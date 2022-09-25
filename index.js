@@ -4,7 +4,7 @@ const app = express()
 
 app.use(express.json())
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 
 const notes = [
   { id: 1, content: "Note #1", date: "2022-09-24T15:04:22.098Z", important: true},
