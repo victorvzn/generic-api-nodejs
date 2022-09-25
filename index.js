@@ -1,15 +1,17 @@
 const express = require('express')
-const nodemon = require('nodemon')
+const cors = require('cors')
+const logger = require('./middlewares/logger')
+
 const app = express()
 
+app.use(cors())
 app.use(express.json())
+app.use(logger)
 
-const PORT = process.env.PORT || 3001
-
-const notes = [
-  { id: 1, content: "Note #1", date: "2022-09-24T15:04:22.098Z", important: true},
-  { id: 2, content: "Note #2", date: "2022-09-24T15:04:22.098Z", important: true},
-  { id: 3, content: "Note #3", date: "2022-09-24T15:04:22.098Z", important: true},
+let notes = [
+  { id: 1, content: 'Note #1', date: '2022-09-24T15:04:22.098Z', important: true },
+  { id: 2, content: 'Note #2', date: '2022-09-24T15:04:22.098Z', important: true },
+  { id: 3, content: 'Note #3', date: '2022-09-24T15:04:22.098Z', important: true }
 ]
 
 app.get('/', (req, res) => {
@@ -21,7 +23,7 @@ app.get('/api/notes', (req, res) => {
 })
 
 app.get('/api/notes/:id', (req, res) => {
-  const id  = Number(req.params.id)
+  const id = Number(req.params.id)
   const note = notes.find(note => note.id === id)
   if (note) {
     res.json(note)
@@ -31,13 +33,13 @@ app.get('/api/notes/:id', (req, res) => {
 })
 
 app.delete('/api/notes/:id', (req, res) => {
-  const id  = Number(req.params.id)
+  const id = Number(req.params.id)
   notes = notes.filter(note => note.id !== id)
   res.status(204).end()
 })
 
 app.post('/api/notes', (req, res) => {
-  const note = request.body
+  const note = req.body
 
   if (!note || !note.content) {
     return res.status(400).json({ error: 'note.content is missing' })
